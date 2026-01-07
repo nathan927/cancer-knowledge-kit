@@ -382,7 +382,28 @@
                 'none': '不符合',
                 'partial': '部分符合',
                 'mostly': '大致符合',
-                'fully': '完全符合'
+                'fully': '完全符合',
+                'infoIntro': '以下資訊由一位已故癌症病人家屬整理，希望能幫助其他家庭。',
+                'navBasics': '基本概念',
+                'navStats': '數據統計',
+                'navCauses': '癌症成因',
+                'navPrevention': '預防關鍵',
+                'navEarly': '早期發現',
+                'navCaregiving': '照顧患者',
+                'navResources': '資源支援',
+                'navAI': '🤖 AI突破',
+                'navTreatments': '💉 最新療法',
+                'navPain': '💊 癌痛管理',
+                'navTCM': '🌿 中醫食療',
+                'testKnowledge': '測試您的知識',
+                'testDesc': '學習後可透過問答測驗鞏固知識',
+                'beginner': '入門級',
+                'intermediate': '進階級',
+                'expert': '專家級',
+                'customTags': '⚙️ 自訂問題標籤',
+                'aboutSite': '關於本網站',
+                'aboutDesc': '本網站提供癌症相關知識，包含預防、檢查、治療等資訊，以及超過130道問答題目。所有內容僅供參考，不能替代專業醫療諮詢。',
+                'dedication': '獻給我的父親'
             },
             'zh-CN': {
                 'appTitle': '癌症知识问与答',
@@ -447,7 +468,28 @@
                 'none': '不符合',
                 'partial': '部分符合',
                 'mostly': '大致符合',
-                'fully': '完全符合'
+                'fully': '完全符合',
+                'infoIntro': '以下资讯由一位已故癌症病人家属整理，希望能帮助其他家庭。',
+                'navBasics': '基本概念',
+                'navStats': '数据统计',
+                'navCauses': '癌症成因',
+                'navPrevention': '预防关键',
+                'navEarly': '早期发现',
+                'navCaregiving': '照顾患者',
+                'navResources': '资源支援',
+                'navAI': '🤖 AI突破',
+                'navTreatments': '💉 最新疗法',
+                'navPain': '💊 癌痛管理',
+                'navTCM': '🌿 中医食疗',
+                'testKnowledge': '测试您的知识',
+                'testDesc': '学习后可通过问答测验巩固知识',
+                'beginner': '入门级',
+                'intermediate': '进阶级',
+                'expert': '专家级',
+                'customTags': '⚙️ 自定义问题标签',
+                'aboutSite': '关于本网站',
+                'aboutDesc': '本网站提供癌症相关知识，包含预防、检查、治疗等资讯，以及超过130道问答题目。所有内容仅供参考，不能替代专业医疗咨询。',
+                'dedication': '献给我的父亲'
             },
             'en': {
                 'appTitle': 'Cancer Knowledge Q&A',
@@ -510,9 +552,30 @@
                 'often': 'Often',
                 'always': 'Always',
                 'none': 'No Match',
-                'partial': 'PartialMatch',
+                'partial': 'Partial Match',
                 'mostly': 'Mainly',
-                'fully': 'Fully'
+                'fully': 'Fully',
+                'infoIntro': 'The following information was compiled by a family member of a deceased cancer patient, hoping to help other families.',
+                'navBasics': 'Basics',
+                'navStats': 'Statistics',
+                'navCauses': 'Causes',
+                'navPrevention': 'Prevention',
+                'navEarly': 'Early Detection',
+                'navCaregiving': 'Caregiving',
+                'navResources': 'Resources',
+                'navAI': '🤖 AI Breakthroughs',
+                'navTreatments': '💉 Latest Treatments',
+                'navPain': '💊 Pain Management',
+                'navTCM': '🌿 TCM Diet Therapy',
+                'testKnowledge': 'Test Your Knowledge',
+                'testDesc': 'Reinforce your learning through quizzes',
+                'beginner': 'Beginner',
+                'intermediate': 'Intermediate',
+                'expert': 'Expert',
+                'customTags': '⚙️ Custom Question Tags',
+                'aboutSite': 'About This Site',
+                'aboutDesc': 'This website provides cancer-related knowledge, including prevention, screening, treatment, and over 130 quiz questions. All content is for reference only and cannot replace professional medical advice.',
+                'dedication': 'Dedicated to my father'
             }
         };
 
@@ -4321,47 +4384,7 @@
 
         // Setup navigation for info page
         function setupInfoPageNavigation() {
-            const infoNav = document.getElementById('info-nav');
-            if (!infoNav) return;
-
-            let hideTimeout;
-            let isUserActive = true;
-
-            // 函數：顯示導航欄
-            function showNav() {
-                infoNav.classList.remove('hidden');
-                isUserActive = true;
-                // 重置隱藏計時器
-                clearTimeout(hideTimeout);
-                hideTimeout = setTimeout(hideNav, 3000); // 3秒後隱藏 (僅手機版)
-            }
-
-            // 函數：隱藏導航欄
-            function hideNav() {
-                // 只在手機版隱藏導航欄
-                if (window.innerWidth <= 640) {
-                    infoNav.classList.add('hidden');
-                }
-                isUserActive = false;
-            }
-
-            // 監聽滾動事件
-            window.addEventListener('scroll', function () {
-                showNav();
-            }, { passive: true });
-
-            // 監聽觸摸事件（手機）
-            window.addEventListener('touchstart', function () {
-                showNav();
-            }, { passive: true });
-
-            // 監聽滑鼠移動事件
-            window.addEventListener('mousemove', function () {
-                showNav();
-            }, { passive: true });
-
-            // 初始狀態：3秒後開始自動隱藏
-            hideTimeout = setTimeout(hideNav, 3000);
+            // 導航欄保持顯示，不再自動隱藏
 
             // 為所有導航鏈接添加點擊事件
             document.querySelectorAll('.cancer-info-container a[href^="#"]').forEach(anchor => {
@@ -4485,41 +4508,41 @@
                     <div class="bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-5 rounded-xl mb-8 max-w-xl mx-auto">
                         <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center justify-center">
                             <span class="text-2xl mr-2">🧠</span>
-                            測試您的知識
+                            ${t('testKnowledge')}
                         </h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">學習後可透過問答測驗鞏固知識</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">${t('testDesc')}</p>
                         <div class="flex flex-col sm:flex-row justify-center gap-3">
                             <button onclick="startQuiz('easy')" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-5 rounded-lg transition-all duration-300 shadow hover:shadow-md text-sm">
                                 <span class="flex items-center justify-center">
                                     <span class="mr-2">⭐</span>
-                                    入門級
+                                    ${t('beginner')}
                                 </span>
                             </button>
                             <button onclick="startQuiz('medium')" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-5 rounded-lg transition-all duration-300 shadow hover:shadow-md text-sm">
                                 <span class="flex items-center justify-center">
                                     <span class="mr-2">⭐⭐</span>
-                                    進階級
+                                    ${t('intermediate')}
                                 </span>
                             </button>
                             <button onclick="startQuiz('hard')" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-5 rounded-lg transition-all duration-300 shadow hover:shadow-md text-sm">
                                 <span class="flex items-center justify-center">
                                     <span class="mr-2">⭐⭐⭐</span>
-                                    專家級
+                                    ${t('expert')}
                                 </span>
                             </button>
                         </div>
                         <button onclick="goToSettings()" class="mt-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-sm underline transition-colors">
-                            ⚙️ 自訂問題標籤
+                            ${t('customTags')}
                         </button>
                     </div>
                     
                     <!-- 關於說明 -->
                     <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg mb-6 text-left shadow-sm max-w-xl mx-auto">
-                        <h2 class="font-bold text-lg mb-2 text-blue-800 dark:text-blue-200">關於本網站</h2>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">本網站提供癌症相關知識，包含預防、檢查、治療等資訊，以及超過130道問答題目。所有內容僅供參考，不能替代專業醫療諮詢。</p>
+                        <h2 class="font-bold text-lg mb-2 text-blue-800 dark:text-blue-200">${t('aboutSite')}</h2>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">${t('aboutDesc')}</p>
                     </div>
                     
-                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-8 italic">獻給我的父親</p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-8 italic">${t('dedication')}</p>
                 </div>
             `;
         }
@@ -4874,42 +4897,42 @@
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md mb-6 info-content">
-                        <p class="text-gray-600 dark:text-gray-300 italic mb-6">以下資訊由一位癌症病人家屬整理，希望能幫助其他家庭。</p>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-6">${t('infoIntro')}</p>
                         
                         <!-- 分類導航 -->
                         <div id="info-nav" class="info-nav flex flex-wrap gap-2 mb-6 sticky top-0 bg-white dark:bg-gray-800 z-10 py-2 border-b dark:border-gray-700">
                             <button onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth'})" class="bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors text-sm sm:text-base mb-1">
-                                基本概念
+                                ${t('navBasics')}
                             </button>
                             <button onclick="document.getElementById('statistics').scrollIntoView({behavior: 'smooth'})" class="bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors text-sm sm:text-base mb-1">
-                                數據統計
+                                ${t('navStats')}
                             </button>
                             <button onclick="document.getElementById('causes').scrollIntoView({behavior: 'smooth'})" class="bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors text-sm sm:text-base mb-1">
-                                癌症成因
+                                ${t('navCauses')}
                             </button>
                             <button onclick="document.getElementById('prevention').scrollIntoView({behavior: 'smooth'})" class="bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors text-sm sm:text-base mb-1">
-                                預防關鍵
+                                ${t('navPrevention')}
                             </button>
                             <button onclick="document.getElementById('earlyDetection').scrollIntoView({behavior: 'smooth'})" class="bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors text-sm sm:text-base mb-1">
-                                早期發現
+                                ${t('navEarly')}
                             </button>
                             <button onclick="document.getElementById('caregiving').scrollIntoView({behavior: 'smooth'})" class="bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors text-sm sm:text-base mb-1">
-                                照顧患者
+                                ${t('navCaregiving')}
                             </button>
                             <button onclick="document.getElementById('resources').scrollIntoView({behavior: 'smooth'})" class="bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors text-sm sm:text-base mb-1">
-                                資源支援
+                                ${t('navResources')}
                             </button>
                             <button onclick="document.getElementById('aiBreakthroughs').scrollIntoView({behavior: 'smooth'})" class="bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors text-sm sm:text-base mb-1">
-                                🤖 AI突破
+                                ${t('navAI')}
                             </button>
                             <button onclick="document.getElementById('latestTreatments').scrollIntoView({behavior: 'smooth'})" class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors text-sm sm:text-base mb-1">
-                                💉 最新療法
+                                ${t('navTreatments')}
                             </button>
                             <button onclick="document.getElementById('painManagement').scrollIntoView({behavior: 'smooth'})" class="bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 px-3 py-1 rounded-full hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors text-sm sm:text-base mb-1">
-                                💊 癌痛管理
+                                ${t('navPain')}
                             </button>
                             <button onclick="document.getElementById('tcmDietaryTherapy').scrollIntoView({behavior: 'smooth'})" class="bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 px-3 py-1 rounded-full hover:bg-green-200 dark:hover:bg-green-800 transition-colors text-sm sm:text-base mb-1">
-                                🌿 中醫食療
+                                ${t('navTCM')}
                             </button>
                         </div>
 
