@@ -2,7 +2,7 @@
 
 ![Poster](poster.jpg)
 
-**[🌐 https://nathan927.github.io/cancer-knowledge-kit | [繁體中文](#繁體中文) | [English](#english)**
+**[🌐 https://nathan927.github.io/cancer-knowledge-kit | **
 
 > **知癌・防癌・抗癌・願世界無癌**
 >
