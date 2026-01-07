@@ -4431,49 +4431,50 @@
         function renderWelcomeScreen() {
             return `
                 <div class="text-center fade-in">
-                    <!-- 網站標題 -->
-                    <h1 class="text-4xl font-bold text-primary mb-2 mt-10">${t('appTitle')}</h1>
-                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-10 italic">${t('appSubtitle')}</p>
+                    <!-- 網站標題 - 增加手機版頂部間距 -->
+                    <h1 class="text-4xl font-bold text-primary mb-2 mt-16 sm:mt-10">${t('appTitle')}</h1>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 italic">${t('appSubtitle')}</p>
                     
-                    <!-- 區塊 1: 用戶身份分流 (優先) -->
+                    <!-- 區塊 1: 癌症知識百科 (主要入口 - 最優先) -->
                     <div class="mb-10">
-                        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-5">${t('identityTitle')}</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                        <button onclick="showCancerInfo()" 
+                            class="w-full max-w-2xl mx-auto block bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-orange-900/40 dark:via-amber-900/40 dark:to-yellow-900/40 border-2 border-orange-300 dark:border-orange-600 hover:border-orange-500 dark:hover:border-orange-400 p-8 rounded-3xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group">
+                            <div class="flex items-center justify-center mb-4">
+                                <span class="text-5xl mr-3 group-hover:scale-110 transition-transform">📚</span>
+                                <h2 class="text-2xl sm:text-3xl font-bold text-orange-800 dark:text-orange-200">${t('encyclopediaTitle')}</h2>
+                            </div>
+                            <p class="text-orange-700 dark:text-orange-300 mb-5 text-base">${t('encyclopediaDesc')}</p>
+                            <div class="flex flex-wrap justify-center gap-2 text-xs">
+                                <span class="bg-white/70 dark:bg-gray-800/70 px-3 py-1.5 rounded-full text-orange-800 dark:text-orange-200 shadow-sm">基本概念</span>
+                                <span class="bg-white/70 dark:bg-gray-800/70 px-3 py-1.5 rounded-full text-orange-800 dark:text-orange-200 shadow-sm">統計數據</span>
+                                <span class="bg-white/70 dark:bg-gray-800/70 px-3 py-1.5 rounded-full text-orange-800 dark:text-orange-200 shadow-sm">預防關鍵</span>
+                                <span class="bg-white/70 dark:bg-gray-800/70 px-3 py-1.5 rounded-full text-orange-800 dark:text-orange-200 shadow-sm">早期發現</span>
+                                <span class="bg-white/70 dark:bg-gray-800/70 px-3 py-1.5 rounded-full text-orange-800 dark:text-orange-200 shadow-sm">照顧指南</span>
+                                <span class="bg-white/70 dark:bg-gray-800/70 px-3 py-1.5 rounded-full text-orange-800 dark:text-orange-200 shadow-sm">資源援助</span>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <!-- 區塊 2: 用戶身份分流 -->
+                    <div class="mb-10">
+                        <h2 class="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-4">${t('identityTitle')}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
                             <!-- 卡片 1: 擔心症狀 -->
                             <button onclick="goToRiskAssessment()" 
-                                class="group bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/40 dark:to-orange-900/40 border-2 border-amber-200 dark:border-amber-700 hover:border-amber-400 dark:hover:border-amber-500 p-5 rounded-2xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 text-left">
-                                <div class="text-4xl mb-3">🔍</div>
-                                <h3 class="font-bold text-lg text-amber-800 dark:text-amber-200 mb-1">${t('symptomConcern')}</h3>
-                                <p class="text-sm text-amber-600 dark:text-amber-300">${t('symptomDesc')}</p>
+                                class="group bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 border-2 border-blue-200 dark:border-blue-700 hover:border-blue-400 dark:hover:border-blue-500 p-5 rounded-2xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 text-left">
+                                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🔍</div>
+                                <h3 class="font-bold text-lg text-blue-800 dark:text-blue-200 mb-1">${t('symptomConcern')}</h3>
+                                <p class="text-sm text-blue-600 dark:text-blue-300">${t('symptomDesc')}</p>
                             </button>
                             
                             <!-- 卡片 2: 患者/照顧者 -->
                             <button onclick="showCancerInfo(); setTimeout(() => document.getElementById('caregiving')?.scrollIntoView({behavior:'smooth'}), 200);" 
-                                class="group bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/40 dark:to-pink-900/40 border-2 border-purple-200 dark:border-purple-700 hover:border-purple-400 dark:hover:border-purple-500 p-5 rounded-2xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 text-left">
-                                <div class="text-4xl mb-3">💜</div>
+                                class="group bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 border-2 border-purple-200 dark:border-purple-700 hover:border-purple-400 dark:hover:border-purple-500 p-5 rounded-2xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 text-left">
+                                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">💜</div>
                                 <h3 class="font-bold text-lg text-purple-800 dark:text-purple-200 mb-1">${t('patientCaregiver')}</h3>
                                 <p class="text-sm text-purple-600 dark:text-purple-300">${t('caregiverDesc')}</p>
                             </button>
                         </div>
-                    </div>
-                    
-                    <!-- 區塊 2: 知識百科入口 (主要) -->
-                    <div class="bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/30 dark:to-amber-900/30 border-2 border-orange-300 dark:border-orange-700 p-6 rounded-2xl mb-10 max-w-2xl mx-auto shadow-md">
-                        <button onclick="showCancerInfo()" class="w-full">
-                            <div class="flex items-center justify-center mb-3">
-                                <span class="text-4xl mr-3">📚</span>
-                                <h2 class="text-2xl font-bold text-orange-800 dark:text-orange-200">${t('encyclopediaTitle')}</h2>
-                            </div>
-                            <p class="text-orange-700 dark:text-orange-300 mb-4">${t('encyclopediaDesc')}</p>
-                            <div class="flex flex-wrap justify-center gap-2 text-xs">
-                                <span class="bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-full text-orange-800 dark:text-orange-200">基本概念</span>
-                                <span class="bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-full text-orange-800 dark:text-orange-200">統計數據</span>
-                                <span class="bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-full text-orange-800 dark:text-orange-200">預防關鍵</span>
-                                <span class="bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-full text-orange-800 dark:text-orange-200">早期發現</span>
-                                <span class="bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-full text-orange-800 dark:text-orange-200">照顧指南</span>
-                                <span class="bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-full text-orange-800 dark:text-orange-200">資源援助</span>
-                            </div>
-                        </button>
                     </div>
                     
                     <!-- 區塊 3: 問答測驗 (次要) -->
