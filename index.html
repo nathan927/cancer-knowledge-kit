@@ -81,7 +81,7 @@
 
 
 
-        /* Language dropdown */
+        /* Language dropdown - custom */
         .lang-select-container {
             position: fixed;
             top: 1rem;
@@ -89,9 +89,8 @@
             z-index: 50;
         }
 
-        .lang-select {
-            appearance: none;
-            padding: 0.5rem 2rem 0.5rem 1rem;
+        .lang-trigger {
+            padding: 0.5rem 1rem;
             border-radius: 9999px;
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(4px);
@@ -103,26 +102,77 @@
             outline: none;
             transition: all 0.3s;
             color: #374151;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 0.5rem center;
-            background-repeat: no-repeat;
-            background-size: 1.5em 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
 
-        .dark .lang-select {
+        .dark .lang-trigger {
             background-color: rgba(31, 41, 55, 0.8);
             color: #e5e7eb;
             border-color: rgba(255, 255, 255, 0.1);
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
         }
 
-        .lang-select:hover {
+        .lang-trigger:hover {
             background-color: rgba(255, 255, 255, 0.95);
             transform: translateY(-1px);
         }
 
-        .dark .lang-select:hover {
+        .dark .lang-trigger:hover {
             background-color: rgba(31, 41, 55, 0.95);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+        }
+
+        .lang-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dark .lang-dropdown {
+            background-color: rgba(31, 41, 55, 0.95);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-option {
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+            font-size: 0.875rem;
+        }
+
+        .lang-option:hover {
+            background-color: rgba(93, 92, 222, 0.1);
+        }
+
+        .lang-option.active {
+            background-color: rgba(93, 92, 222, 0.2);
+            font-weight: bold;
+        }
+
+        .dark .lang-option:hover {
+            background-color: rgba(93, 92, 222, 0.2);
+        }
+
+        .dark .lang-option.active {
+            background-color: rgba(93, 92, 222, 0.3);
         }
 
         /* 導航欄自動隱藏功能 */
@@ -220,11 +270,18 @@
         <span id="theme-icon">🌙</span>
     </button>
     <div class="lang-select-container">
-        <select id="lang-select" onchange="changeLanguage(this.value)" class="lang-select" aria-label="Select Language">
-            <option value="zh-HK">繁體中文</option>
-            <option value="zh-CN">简体中文</option>
-            <option value="en">English</option>
-        </select>
+        <button id="lang-trigger" class="lang-trigger" onclick="toggleLangDropdown()" aria-label="Select Language">
+            <span id="lang-current">繁</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </button>
+        <div id="lang-dropdown" class="lang-dropdown">
+            <div class="lang-option active" data-lang="zh-HK" onclick="selectLanguage('zh-HK')">繁體中文</div>
+            <div class="lang-option" data-lang="zh-CN" onclick="selectLanguage('zh-CN')">简体中文</div>
+            <div class="lang-option" data-lang="en" onclick="selectLanguage('en')">English</div>
+        </div>
     </div>
 
     <div id="app" class="container mx-auto px-4 py-8 max-w-3xl">
@@ -467,6 +524,42 @@
             currentLanguage = lang;
             renderCurrentState();
         }
+
+        // Custom language dropdown functions
+        function toggleLangDropdown() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('open');
+        }
+
+        function selectLanguage(lang) {
+            currentLanguage = lang;
+
+            // Update trigger text
+            const langLabels = { 'zh-HK': '繁', 'zh-CN': '簡', 'en': 'Eng' };
+            document.getElementById('lang-current').textContent = langLabels[lang];
+
+            // Update active state
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.dataset.lang === lang) {
+                    opt.classList.add('active');
+                }
+            });
+
+            // Close dropdown
+            document.getElementById('lang-dropdown').classList.remove('open');
+
+            // Re-render
+            renderCurrentState();
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            const container = document.querySelector('.lang-select-container');
+            if (container && !container.contains(e.target)) {
+                document.getElementById('lang-dropdown').classList.remove('open');
+            }
+        });
 
         // Define available tags for questions
         const availableTags = [
