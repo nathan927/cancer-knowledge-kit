@@ -5309,15 +5309,15 @@
         // 共通問題 (40題) - 含回應類型和時間段
         const commonQuestions = [
             // Part A: 一般症狀 (12題)
-            { id: 'gen1', text: '過去6個月內，您是否不明原因體重下降超過5公斤？', cancers: ['all'], weight: 12, responseType: 'yesNo', timeframe: '6months' },
-            { id: 'gen2', text: '過去3個月內，您是否經常感到極度疲勞，休息後仍未改善？', cancers: ['all'], weight: 10, responseType: 'frequency', timeframe: '3months' },
+            { id: 'gen1', text: '過去6個月內，您是否不明原因體重下降超過5公斤？', cancers: ['all'], weight: 8, responseType: 'yesNo', timeframe: '6months' },
+            { id: 'gen2', text: '過去3個月內，您是否經常感到極度疲勞，休息後仍未改善？', cancers: ['all'], weight: 5, responseType: 'frequency', timeframe: '3months' },
             { id: 'gen3', text: '過去4週內，您是否有不明原因發燒？', cancers: ['lymphoma', 'leukemia'], weight: 12, responseType: 'yesNo', timeframe: '4weeks' },
             { id: 'gen4', text: '過去4週內，您是否有夜間盜汗（嚴重到需更換衣物）？', cancers: ['lymphoma'], weight: 12, responseType: 'yesNo', timeframe: '4weeks' },
-            { id: 'gen5', text: '過去4週內，您是否有任何部位不明原因的持續疼痛？', cancers: ['all'], weight: 8, responseType: 'yesNo', timeframe: '4weeks' },
+            { id: 'gen5', text: '過去4週內，您是否有任何部位不明原因的持續疼痛？', cancers: ['all'], weight: 4, responseType: 'yesNo', timeframe: '4weeks' },
             { id: 'gen6', text: '過去2週內，您是否有無法解釋的瘀傷或容易出血？', cancers: ['leukemia'], weight: 12, responseType: 'yesNo', timeframe: '2weeks' },
             { id: 'gen7', text: '過去2週內，您是否有持續的食慾不振？', cancers: ['stomach', 'liver', 'pancreas'], weight: 10, responseType: 'yesNo', timeframe: '2weeks' },
             { id: 'gen8', text: '目前，您的皮膚或眼白是否發黃（黃疸）？', cancers: ['liver', 'pancreas'], weight: 15, responseType: 'yesNo', timeframe: 'current' },
-            { id: 'gen9', text: '目前，您身體任何部位是否有不消退的腫塊？', cancers: ['all'], weight: 12, responseType: 'yesNo', timeframe: 'current' },
+            { id: 'gen9', text: '目前，您身體任何部位是否有不消退的腫塊？', cancers: ['all'], weight: 8, responseType: 'yesNo', timeframe: 'current' },
             { id: 'gen10', text: '過去4週內，您是否有傷口超過3週仍未癒合？', cancers: ['skin'], weight: 12, responseType: 'yesNo', timeframe: '4weeks' },
             { id: 'gen11', text: '過去2週內，您是否有持續的頭痛？', cancers: ['brain'], weight: 8, responseType: 'yesNo', timeframe: '2weeks' },
             { id: 'gen12', text: '過去4週內，您的視力是否突然發生改變？', cancers: ['brain'], weight: 8, responseType: 'yesNo', timeframe: '4weeks' },
@@ -5356,13 +5356,13 @@
             { id: 'risk1', text: '您是否有吸煙習慣（現在或曾經）？', cancers: ['lung', 'bladder', 'oral'], weight: 10, isRiskFactor: true, responseType: 'yesNo', timeframe: 'ever' },
             { id: 'risk2', text: '您每週飲酒是否超過14個標準單位（約7杯）？', cancers: ['liver', 'oral', 'esophagus'], weight: 8, isRiskFactor: true, responseType: 'yesNo', timeframe: 'current' },
             { id: 'risk3', text: '您是否曾被診斷乙型或丙型肝炎？', cancers: ['liver'], weight: 15, isRiskFactor: true, responseType: 'yesNo', timeframe: 'ever' },
-            { id: 'risk4', text: '您的直系親屬（父母/兄弟姊妹）是否有人患過癌症？', cancers: ['all'], weight: 8, isRiskFactor: true, responseType: 'yesNo', timeframe: 'ever' },
+            { id: 'risk4', text: '您的直系親屬（父母/兄弟姊妹）是否有人患過癌症？', cancers: ['all'], weight: 4, isRiskFactor: true, responseType: 'yesNo', timeframe: 'ever' },
 
             // Part H: 生活習慣風險因素 (4題)
             { id: 'life1', text: '您目前是否經常暴露於二手煙環境？', cancers: ['lung'], weight: 8, isRiskFactor: true, responseType: 'frequency', timeframe: 'current' },
-            { id: 'life2', text: '您每週運動是否少於150分鐘？', cancers: ['colorectal', 'breast'], weight: 5, isRiskFactor: true, responseType: 'yesNo', timeframe: 'current' },
-            { id: 'life3', text: '您每天蔬果攝入是否少於5份？', cancers: ['colorectal', 'stomach'], weight: 5, isRiskFactor: true, responseType: 'yesNo', timeframe: 'current' },
-            { id: 'life4', text: '您是否經常食用加工肉類（如香腸、培根）？', cancers: ['colorectal', 'stomach'], weight: 6, isRiskFactor: true, responseType: 'frequency', timeframe: 'current' }
+            { id: 'life2', text: '您每週運動是否少於150分鐘？', cancers: ['colorectal', 'breast'], weight: 3, isRiskFactor: true, responseType: 'yesNo', timeframe: 'current' },
+            { id: 'life3', text: '您每天蔬果攝入是否少於5份？', cancers: ['colorectal', 'stomach'], weight: 3, isRiskFactor: true, responseType: 'yesNo', timeframe: 'current' },
+            { id: 'life4', text: '您是否經常食用加工肉類（如香腸、培根）？', cancers: ['colorectal', 'stomach'], weight: 3, isRiskFactor: true, responseType: 'frequency', timeframe: 'current' }
         ];
 
         // 男性專屬問題 (7題) - 移除m1 (與uri2重複)
@@ -5540,12 +5540,12 @@
 
         // 計算年齡風險倍數
         function getAgeMultiplier(age) {
-            if (age < 30) return 0.5;
+            if (age < 30) return 0.6;
             if (age < 40) return 0.8;
             if (age < 50) return 1.0;
-            if (age < 60) return 1.3;
-            if (age < 70) return 1.5;
-            return 1.7;
+            if (age < 60) return 1.1;
+            if (age < 70) return 1.2;
+            return 1.4;
         }
 
         // 計算風險分數 (含滿分和百分比)
@@ -6042,10 +6042,10 @@
 
         // 5級風險分類 (基於百分比)
         function getRiskLevel(percentage) {
-            if (percentage <= 15) return 'veryLow';
-            if (percentage <= 30) return 'low';
-            if (percentage <= 50) return 'medium';
-            if (percentage <= 70) return 'high';
+            if (percentage <= 20) return 'veryLow';
+            if (percentage <= 40) return 'low';
+            if (percentage <= 60) return 'medium';
+            if (percentage <= 80) return 'high';
             return 'veryHigh';
         }
 
@@ -6712,27 +6712,27 @@
                         <div class="bg-green-100 dark:bg-green-900/30 p-2 rounded-lg text-center">
                             <span class="block text-lg">✅</span>
                             <strong>${t('riskLevelVeryLow')}</strong>
-                            <p class="text-gray-500">0-15%</p>
+                            <p class="text-gray-500">0-20%</p>
                         </div>
                         <div class="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg text-center">
                             <span class="block text-lg">🔵</span>
                             <strong>${t('riskLevelLow')}</strong>
-                            <p class="text-gray-500">16-30%</p>
+                            <p class="text-gray-500">21-40%</p>
                         </div>
                         <div class="bg-yellow-100 dark:bg-yellow-900/30 p-2 rounded-lg text-center">
                             <span class="block text-lg">🟡</span>
                             <strong>${t('riskLevelMedium')}</strong>
-                            <p class="text-gray-500">31-50%</p>
+                            <p class="text-gray-500">41-60%</p>
                         </div>
                         <div class="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-lg text-center">
                             <span class="block text-lg">🟠</span>
                             <strong>${t('riskLevelHigh')}</strong>
-                            <p class="text-gray-500">51-70%</p>
+                            <p class="text-gray-500">61-80%</p>
                         </div>
                         <div class="bg-red-100 dark:bg-red-900/30 p-2 rounded-lg text-center">
                             <span class="block text-lg">🔴</span>
                             <strong>${t('riskLevelVeryHigh')}</strong>
-                            <p class="text-gray-500">>70%</p>
+                            <p class="text-gray-500">>80%</p>
                         </div>
                     </div>
                     
