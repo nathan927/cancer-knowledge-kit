@@ -5642,6 +5642,287 @@
             };
             const recommendedTests = recommendedTests_all[currentLanguage] || recommendedTests_all['zh-HK'];
 
+            // 詳細建議資料 - 包含行動、生活調整、症狀警示、就醫時間
+            const detailedRecommendations_all = {
+                'zh-HK': {
+                    'lung': {
+                        actions: ['戒煙（這是最重要的一步）', '遠離二手煙環境', '預約胸腔科或呼吸科專科醫生', '考慮進行低劑量CT肺癌篩查'],
+                        lifestyle: ['每天運動30分鐘增強心肺功能', '多吃十字花科蔬菜（西蘭花、椰菜花）', '保持室內空氣流通，使用空氣清新機', '避免空氣污染嚴重時外出'],
+                        symptoms: ['持續咳嗽超過3週', '咳血或血痰', '呼吸困難或氣促', '胸痛或肩背痛'],
+                        urgency: '建議2週內預約專科醫生'
+                    },
+                    'colorectal': {
+                        actions: ['預約腸胃科醫生進行大腸鏡檢查', '進行糞便隱血測試(FIT)', '如有家族史，考慮基因檢測', '50歲以上應定期篩查'],
+                        lifestyle: ['增加膳食纖維攝取（每天25-30克）', '減少紅肉和加工肉製品', '保持規律運動習慣', '維持健康體重'],
+                        symptoms: ['排便習慣持續改變', '大便帶血或呈黑色', '持續腹痛或腹脹', '不明原因體重下降'],
+                        urgency: '建議1-2週內預約腸胃科醫生'
+                    },
+                    'liver': {
+                        actions: ['進行肝功能檢查和腹部超聲波', '如有乙肝/丙肝，需定期監測', '戒酒或大幅減少酒精攝取', '諮詢肝膽科專科醫生'],
+                        lifestyle: ['完全戒除或減少酒精', '避免服用不必要的藥物', '保持健康體重避免脂肪肝', '接種乙型肝炎疫苗（如未接種）'],
+                        symptoms: ['右上腹持續疼痛', '皮膚或眼白發黃', '不明原因體重下降', '腹部腫脹或積水'],
+                        urgency: '建議1-2週內預約專科醫生'
+                    },
+                    'stomach': {
+                        actions: ['預約腸胃科醫生進行胃鏡檢查', '進行幽門螺桿菌測試', '如有家族史需定期監測', '評估現有胃部症狀'],
+                        lifestyle: ['減少醃製和煙燻食物', '少吃高鹽食物', '戒煙戒酒', '多吃新鮮蔬果'],
+                        symptoms: ['持續消化不良或胃灼熱', '進食後腹部不適', '噁心嘔吐', '食慾不振或體重下降'],
+                        urgency: '建議2-4週內預約腸胃科醫生'
+                    },
+                    'prostate': {
+                        actions: ['預約泌尿科醫生進行PSA血液檢查', '進行前列腺指檢', '如有家族史需提早開始篩查', '討論是否需要前列腺活檢'],
+                        lifestyle: ['減少高脂肪飲食', '多吃番茄（含茄紅素）', '保持規律運動', '維持健康體重'],
+                        symptoms: ['排尿困難或尿流變弱', '夜間頻繁排尿', '排尿疼痛或血尿', '下背部或骨盆疼痛'],
+                        urgency: '建議2-4週內預約泌尿科醫生'
+                    },
+                    'breast': {
+                        actions: ['預約乳房外科或婦科進行乳房X光檢查', '進行乳房超聲波檢查', '學習正確的乳房自我檢查方法', '如有家族史，考慮基因檢測（BRCA）'],
+                        lifestyle: ['維持健康體重', '限制酒精攝取', '保持規律運動', '考慮母乳餵哺（如適用）'],
+                        symptoms: ['乳房出現新硬塊', '乳頭異常分泌物', '乳房皮膚改變（凹陷、橘皮狀）', '乳房大小或形狀改變'],
+                        urgency: '建議1-2週內預約乳房專科醫生'
+                    },
+                    'cervical': {
+                        actions: ['預約婦科進行子宮頸抹片檢查', '考慮進行HPV病毒檢測', '如未接種HPV疫苗，諮詢醫生', '遵循定期篩查計劃'],
+                        lifestyle: ['安全性行為', '戒煙（吸煙增加風險）', '增強免疫力', '定期婦科檢查'],
+                        symptoms: ['非經期陰道出血', '性交後出血', '異常陰道分泌物', '骨盆疼痛'],
+                        urgency: '建議2週內預約婦科醫生'
+                    },
+                    'ovarian': {
+                        actions: ['預約婦科進行盆腔超聲波檢查', '進行CA-125血液測試', '如有家族史，考慮基因檢測（BRCA）', '討論風險降低策略'],
+                        lifestyle: ['維持健康體重', '考慮使用口服避孕藥（需諮詢醫生）', '注意荷爾蒙替代療法的風險', '保持規律運動'],
+                        symptoms: ['持續腹部膨脹', '進食後很快飽腹', '骨盆或腹部疼痛', '排尿頻率改變'],
+                        urgency: '建議1-2週內預約婦科醫生'
+                    },
+                    'thyroid': {
+                        actions: ['預約內分泌科進行甲狀腺超聲波', '進行甲狀腺功能檢查', '如發現結節需進行細針抽吸', '評估頸部腫塊'],
+                        lifestyle: ['確保足夠碘質攝取', '避免過多輻射暴露', '定期檢查頸部', '注意家族病史'],
+                        symptoms: ['頸部可見或可觸及腫塊', '吞嚥困難', '聲音沙啞', '頸部淋巴結腫大'],
+                        urgency: '建議2-4週內預約專科醫生'
+                    },
+                    'skin': {
+                        actions: ['預約皮膚科進行全身皮膚檢查', '對可疑痣進行皮膚鏡檢查', '記錄並追蹤痣的變化', '避免過度日曬'],
+                        lifestyle: ['使用SPF30以上防曬霜', '避免中午時段（10am-4pm）陽光直射', '穿戴保護性衣物和帽子', '不使用日光浴床'],
+                        symptoms: ['痣的大小、顏色或形狀改變', '新出現的異常皮膚病變', '傷口久不癒合', '皮膚瘙癢或出血'],
+                        urgency: '建議2-4週內預約皮膚科醫生'
+                    },
+                    'lymphoma': {
+                        actions: ['預約血液科進行血液檢查', '進行淋巴結超聲波或CT掃描', '如有持續腫塊需進行活檢', '排除感染性原因'],
+                        lifestyle: ['增強免疫力', '避免不必要的輻射暴露', '保持健康生活方式', '注意感染預防'],
+                        symptoms: ['頸部、腋下或腹股溝淋巴結腫大', '不明原因發燒', '夜間盜汗', '不明原因體重下降'],
+                        urgency: '建議1-2週內預約血液科醫生'
+                    },
+                    'pancreas': {
+                        actions: ['預約腸胃科進行腹部CT或MRI', '進行血液腫瘤標記物測試', '評估糖尿病風險', '如有家族史需加強監測'],
+                        lifestyle: ['戒煙（吸煙顯著增加風險）', '維持健康體重', '限制酒精攝取', '控制血糖水平'],
+                        symptoms: ['上腹部或背部疼痛', '皮膚發黃（黃疸）', '新發糖尿病或血糖控制惡化', '不明原因體重下降'],
+                        urgency: '建議1週內預約專科醫生'
+                    },
+                    'bladder': {
+                        actions: ['預約泌尿科進行尿液細胞學檢查', '進行膀胱鏡檢查', '評估職業暴露風險', '戒煙（最主要風險因素）'],
+                        lifestyle: ['多喝水稀釋尿液', '戒煙', '避免接觸工業化學品', '注意職業安全防護'],
+                        symptoms: ['血尿（無痛性）', '排尿疼痛或灼熱感', '頻尿或尿急', '下背部疼痛'],
+                        urgency: '建議2週內預約泌尿科醫生'
+                    },
+                    'esophagus': {
+                        actions: ['預約腸胃科進行上消化道內鏡', '評估巴雷特食道風險', '控制胃酸倒流', '戒煙戒酒'],
+                        lifestyle: ['避免過熱飲食', '戒煙戒酒', '控制胃酸倒流症狀', '維持健康體重'],
+                        symptoms: ['吞嚥困難或疼痛', '胸骨後疼痛', '持續消化不良', '不明原因體重下降'],
+                        urgency: '建議2週內預約腸胃科醫生'
+                    },
+                    'oral': {
+                        actions: ['預約口腔科或耳鼻喉科檢查', '進行口腔黏膜檢查', '戒除煙酒和嚼檳榔', '處理口腔潰瘍久不癒合問題'],
+                        lifestyle: ['戒煙戒酒', '停止嚼食檳榔', '保持良好口腔衛生', '定期牙科檢查'],
+                        symptoms: ['口腔潰瘍超過3週不癒合', '口腔內有白斑或紅斑', '吞嚥困難', '持續聲音沙啞'],
+                        urgency: '建議2週內預約專科醫生'
+                    }
+                },
+                'zh-CN': {
+                    'lung': {
+                        actions: ['戒烟（这是最重要的一步）', '远离二手烟环境', '预约胸腔科或呼吸科专科医生', '考虑进行低剂量CT肺癌筛查'],
+                        lifestyle: ['每天运动30分钟增强心肺功能', '多吃十字花科蔬菜（西兰花、花椰菜）', '保持室内空气流通，使用空气净化器', '避免空气污染严重时外出'],
+                        symptoms: ['持续咳嗽超过3周', '咳血或血痰', '呼吸困难或气促', '胸痛或肩背痛'],
+                        urgency: '建议2周内预约专科医生'
+                    },
+                    'colorectal': {
+                        actions: ['预约消化内科医生进行肠镜检查', '进行粪便隐血测试(FIT)', '如有家族史，考虑基因检测', '50岁以上应定期筛查'],
+                        lifestyle: ['增加膳食纤维摄取（每天25-30克）', '减少红肉和加工肉制品', '保持规律运动习惯', '维持健康体重'],
+                        symptoms: ['排便习惯持续改变', '大便带血或呈黑色', '持续腹痛或腹胀', '不明原因体重下降'],
+                        urgency: '建议1-2周内预约消化内科医生'
+                    },
+                    'liver': {
+                        actions: ['进行肝功能检查和腹部超声波', '如有乙肝/丙肝，需定期监测', '戒酒或大幅减少酒精摄取', '咨询肝胆科专科医生'],
+                        lifestyle: ['完全戒除或减少酒精', '避免服用不必要的药物', '保持健康体重避免脂肪肝', '接种乙型肝炎疫苗（如未接种）'],
+                        symptoms: ['右上腹持续疼痛', '皮肤或眼白发黄', '不明原因体重下降', '腹部肿胀或积水'],
+                        urgency: '建议1-2周内预约专科医生'
+                    },
+                    'stomach': {
+                        actions: ['预约消化内科医生进行胃镜检查', '进行幽门螺杆菌测试', '如有家族史需定期监测', '评估现有胃部症状'],
+                        lifestyle: ['减少腌制和熏制食物', '少吃高盐食物', '戒烟戒酒', '多吃新鲜蔬果'],
+                        symptoms: ['持续消化不良或胃灼热', '进食后腹部不适', '恶心呕吐', '食欲不振或体重下降'],
+                        urgency: '建议2-4周内预约消化内科医生'
+                    },
+                    'prostate': {
+                        actions: ['预约泌尿科医生进行PSA血液检查', '进行前列腺指检', '如有家族史需提早开始筛查', '讨论是否需要前列腺活检'],
+                        lifestyle: ['减少高脂肪饮食', '多吃番茄（含番茄红素）', '保持规律运动', '维持健康体重'],
+                        symptoms: ['排尿困难或尿流变弱', '夜间频繁排尿', '排尿疼痛或血尿', '下背部或骨盆疼痛'],
+                        urgency: '建议2-4周内预约泌尿科医生'
+                    },
+                    'breast': {
+                        actions: ['预约乳腺外科或妇科进行乳腺钼靶检查', '进行乳腺超声波检查', '学习正确的乳房自我检查方法', '如有家族史，考虑基因检测（BRCA）'],
+                        lifestyle: ['维持健康体重', '限制酒精摄取', '保持规律运动', '考虑母乳喂养（如适用）'],
+                        symptoms: ['乳房出现新硬块', '乳头异常分泌物', '乳房皮肤改变（凹陷、橘皮状）', '乳房大小或形状改变'],
+                        urgency: '建议1-2周内预约乳腺专科医生'
+                    },
+                    'cervical': {
+                        actions: ['预约妇科进行宫颈涂片检查', '考虑进行HPV病毒检测', '如未接种HPV疫苗，咨询医生', '遵循定期筛查计划'],
+                        lifestyle: ['安全性行为', '戒烟（吸烟增加风险）', '增强免疫力', '定期妇科检查'],
+                        symptoms: ['非经期阴道出血', '性交后出血', '异常阴道分泌物', '骨盆疼痛'],
+                        urgency: '建议2周内预约妇科医生'
+                    },
+                    'ovarian': {
+                        actions: ['预约妇科进行盆腔超声波检查', '进行CA-125血液测试', '如有家族史，考虑基因检测（BRCA）', '讨论风险降低策略'],
+                        lifestyle: ['维持健康体重', '考虑使用口服避孕药（需咨询医生）', '注意激素替代疗法的风险', '保持规律运动'],
+                        symptoms: ['持续腹部膨胀', '进食后很快饱腹', '骨盆或腹部疼痛', '排尿频率改变'],
+                        urgency: '建议1-2周内预约妇科医生'
+                    },
+                    'thyroid': {
+                        actions: ['预约内分泌科进行甲状腺超声波', '进行甲状腺功能检查', '如发现结节需进行细针穿刺', '评估颈部肿块'],
+                        lifestyle: ['确保足够碘质摄取', '避免过多辐射暴露', '定期检查颈部', '注意家族病史'],
+                        symptoms: ['颈部可见或可触及肿块', '吞咽困难', '声音沙哑', '颈部淋巴结肿大'],
+                        urgency: '建议2-4周内预约专科医生'
+                    },
+                    'skin': {
+                        actions: ['预约皮肤科进行全身皮肤检查', '对可疑痣进行皮肤镜检查', '记录并追踪痣的变化', '避免过度日晒'],
+                        lifestyle: ['使用SPF30以上防晒霜', '避免中午时段（10am-4pm）阳光直射', '穿戴保护性衣物和帽子', '不使用日光浴床'],
+                        symptoms: ['痣的大小、颜色或形状改变', '新出现的异常皮肤病变', '伤口久不愈合', '皮肤瘙痒或出血'],
+                        urgency: '建议2-4周内预约皮肤科医生'
+                    },
+                    'lymphoma': {
+                        actions: ['预约血液科进行血液检查', '进行淋巴结超声波或CT扫描', '如有持续肿块需进行活检', '排除感染性原因'],
+                        lifestyle: ['增强免疫力', '避免不必要的辐射暴露', '保持健康生活方式', '注意感染预防'],
+                        symptoms: ['颈部、腋下或腹股沟淋巴结肿大', '不明原因发烧', '夜间盗汗', '不明原因体重下降'],
+                        urgency: '建议1-2周内预约血液科医生'
+                    },
+                    'pancreas': {
+                        actions: ['预约消化内科进行腹部CT或MRI', '进行血液肿瘤标记物测试', '评估糖尿病风险', '如有家族史需加强监测'],
+                        lifestyle: ['戒烟（吸烟显著增加风险）', '维持健康体重', '限制酒精摄取', '控制血糖水平'],
+                        symptoms: ['上腹部或背部疼痛', '皮肤发黄（黄疸）', '新发糖尿病或血糖控制恶化', '不明原因体重下降'],
+                        urgency: '建议1周内预约专科医生'
+                    },
+                    'bladder': {
+                        actions: ['预约泌尿科进行尿液细胞学检查', '进行膀胱镜检查', '评估职业暴露风险', '戒烟（最主要风险因素）'],
+                        lifestyle: ['多喝水稀释尿液', '戒烟', '避免接触工业化学品', '注意职业安全防护'],
+                        symptoms: ['血尿（无痛性）', '排尿疼痛或灼热感', '频尿或尿急', '下背部疼痛'],
+                        urgency: '建议2周内预约泌尿科医生'
+                    },
+                    'esophagus': {
+                        actions: ['预约消化内科进行上消化道内镜', '评估巴雷特食管风险', '控制胃酸反流', '戒烟戒酒'],
+                        lifestyle: ['避免过热饮食', '戒烟戒酒', '控制胃酸反流症状', '维持健康体重'],
+                        symptoms: ['吞咽困难或疼痛', '胸骨后疼痛', '持续消化不良', '不明原因体重下降'],
+                        urgency: '建议2周内预约消化内科医生'
+                    },
+                    'oral': {
+                        actions: ['预约口腔科或耳鼻喉科检查', '进行口腔黏膜检查', '戒除烟酒和嚼槟榔', '处理口腔溃疡久不愈合问题'],
+                        lifestyle: ['戒烟戒酒', '停止嚼食槟榔', '保持良好口腔卫生', '定期牙科检查'],
+                        symptoms: ['口腔溃疡超过3周不愈合', '口腔内有白斑或红斑', '吞咽困难', '持续声音沙哑'],
+                        urgency: '建议2周内预约专科医生'
+                    }
+                },
+                'en': {
+                    'lung': {
+                        actions: ['Quit smoking (this is the most important step)', 'Avoid secondhand smoke', 'Schedule appointment with pulmonologist', 'Consider low-dose CT lung screening'],
+                        lifestyle: ['Exercise 30 minutes daily', 'Eat cruciferous vegetables (broccoli, cauliflower)', 'Ensure good indoor air quality', 'Avoid going out during high pollution'],
+                        symptoms: ['Persistent cough over 3 weeks', 'Coughing up blood', 'Shortness of breath', 'Chest or shoulder pain'],
+                        urgency: 'Schedule specialist appointment within 2 weeks'
+                    },
+                    'colorectal': {
+                        actions: ['Schedule colonoscopy with gastroenterologist', 'Take fecal immunochemical test (FIT)', 'Consider genetic testing if family history', 'Regular screening after age 50'],
+                        lifestyle: ['Increase fiber intake (25-30g daily)', 'Reduce red and processed meat', 'Maintain regular exercise', 'Keep healthy weight'],
+                        symptoms: ['Persistent change in bowel habits', 'Blood in stool or black stool', 'Persistent abdominal pain', 'Unexplained weight loss'],
+                        urgency: 'Schedule GI appointment within 1-2 weeks'
+                    },
+                    'liver': {
+                        actions: ['Get liver function tests and abdominal ultrasound', 'Regular monitoring if hepatitis B/C positive', 'Stop or significantly reduce alcohol', 'Consult hepatologist'],
+                        lifestyle: ['Eliminate or reduce alcohol', 'Avoid unnecessary medications', 'Maintain healthy weight', 'Get hepatitis B vaccine if not vaccinated'],
+                        symptoms: ['Persistent right upper abdominal pain', 'Yellowing of skin or eyes', 'Unexplained weight loss', 'Abdominal swelling'],
+                        urgency: 'Schedule specialist appointment within 1-2 weeks'
+                    },
+                    'stomach': {
+                        actions: ['Schedule gastroscopy', 'Get H. pylori testing', 'Regular monitoring if family history', 'Evaluate current symptoms'],
+                        lifestyle: ['Reduce pickled and smoked foods', 'Limit high-salt foods', 'Quit smoking and alcohol', 'Eat more fresh fruits and vegetables'],
+                        symptoms: ['Persistent indigestion or heartburn', 'Discomfort after eating', 'Nausea and vomiting', 'Loss of appetite or weight loss'],
+                        urgency: 'Schedule GI appointment within 2-4 weeks'
+                    },
+                    'prostate': {
+                        actions: ['Schedule PSA blood test with urologist', 'Get digital rectal exam', 'Start screening earlier if family history', 'Discuss need for prostate biopsy'],
+                        lifestyle: ['Reduce high-fat diet', 'Eat tomatoes (lycopene)', 'Maintain regular exercise', 'Keep healthy weight'],
+                        symptoms: ['Difficulty urinating or weak stream', 'Frequent nighttime urination', 'Painful urination or blood in urine', 'Lower back or pelvic pain'],
+                        urgency: 'Schedule urology appointment within 2-4 weeks'
+                    },
+                    'breast': {
+                        actions: ['Schedule mammogram', 'Get breast ultrasound', 'Learn proper breast self-examination', 'Consider genetic testing (BRCA) if family history'],
+                        lifestyle: ['Maintain healthy weight', 'Limit alcohol intake', 'Exercise regularly', 'Consider breastfeeding if applicable'],
+                        symptoms: ['New lump in breast', 'Abnormal nipple discharge', 'Skin changes (dimpling, orange peel)', 'Change in breast size or shape'],
+                        urgency: 'Schedule breast specialist appointment within 1-2 weeks'
+                    },
+                    'cervical': {
+                        actions: ['Schedule Pap smear test', 'Consider HPV testing', 'Ask about HPV vaccine if not vaccinated', 'Follow regular screening schedule'],
+                        lifestyle: ['Practice safe sex', 'Quit smoking (increases risk)', 'Boost immune system', 'Regular gynecological exams'],
+                        symptoms: ['Bleeding between periods', 'Bleeding after intercourse', 'Abnormal vaginal discharge', 'Pelvic pain'],
+                        urgency: 'Schedule gynecology appointment within 2 weeks'
+                    },
+                    'ovarian': {
+                        actions: ['Schedule pelvic ultrasound', 'Get CA-125 blood test', 'Consider genetic testing (BRCA) if family history', 'Discuss risk reduction strategies'],
+                        lifestyle: ['Maintain healthy weight', 'Consider oral contraceptives (consult doctor)', 'Be aware of HRT risks', 'Exercise regularly'],
+                        symptoms: ['Persistent bloating', 'Feeling full quickly after eating', 'Pelvic or abdominal pain', 'Changes in urination'],
+                        urgency: 'Schedule gynecology appointment within 1-2 weeks'
+                    },
+                    'thyroid': {
+                        actions: ['Schedule thyroid ultrasound', 'Get thyroid function tests', 'Fine needle aspiration if nodules found', 'Evaluate neck lumps'],
+                        lifestyle: ['Ensure adequate iodine intake', 'Avoid excessive radiation exposure', 'Check neck regularly', 'Note family history'],
+                        symptoms: ['Visible or palpable neck lump', 'Difficulty swallowing', 'Hoarse voice', 'Swollen lymph nodes in neck'],
+                        urgency: 'Schedule specialist appointment within 2-4 weeks'
+                    },
+                    'skin': {
+                        actions: ['Schedule full-body skin exam', 'Get dermoscopy for suspicious moles', 'Track and document mole changes', 'Avoid excessive sun exposure'],
+                        lifestyle: ['Use SPF30+ sunscreen', 'Avoid midday sun (10am-4pm)', 'Wear protective clothing and hats', 'Avoid tanning beds'],
+                        symptoms: ['Changes in mole size, color, or shape', 'New abnormal skin lesions', 'Wounds that do not heal', 'Itching or bleeding skin'],
+                        urgency: 'Schedule dermatology appointment within 2-4 weeks'
+                    },
+                    'lymphoma': {
+                        actions: ['Schedule blood tests', 'Get lymph node ultrasound or CT scan', 'Biopsy if persistent lumps', 'Rule out infectious causes'],
+                        lifestyle: ['Boost immune system', 'Avoid unnecessary radiation', 'Maintain healthy lifestyle', 'Prevent infections'],
+                        symptoms: ['Swollen lymph nodes in neck, armpits, or groin', 'Unexplained fever', 'Night sweats', 'Unexplained weight loss'],
+                        urgency: 'Schedule hematology appointment within 1-2 weeks'
+                    },
+                    'pancreas': {
+                        actions: ['Schedule abdominal CT or MRI', 'Get tumor marker blood tests', 'Assess diabetes risk', 'Enhanced monitoring if family history'],
+                        lifestyle: ['Quit smoking (significantly increases risk)', 'Maintain healthy weight', 'Limit alcohol', 'Control blood sugar levels'],
+                        symptoms: ['Upper abdominal or back pain', 'Yellowing of skin (jaundice)', 'New diabetes or worsening blood sugar control', 'Unexplained weight loss'],
+                        urgency: 'Schedule specialist appointment within 1 week'
+                    },
+                    'bladder': {
+                        actions: ['Schedule urine cytology test', 'Get cystoscopy', 'Assess occupational exposure risk', 'Quit smoking (main risk factor)'],
+                        lifestyle: ['Drink plenty of water', 'Quit smoking', 'Avoid industrial chemicals', 'Use proper occupational protection'],
+                        symptoms: ['Blood in urine (painless)', 'Painful or burning urination', 'Frequent or urgent urination', 'Lower back pain'],
+                        urgency: 'Schedule urology appointment within 2 weeks'
+                    },
+                    'esophagus': {
+                        actions: ['Schedule upper endoscopy', 'Assess Barrett esophagus risk', 'Control acid reflux', 'Quit smoking and alcohol'],
+                        lifestyle: ['Avoid very hot foods and drinks', 'Quit smoking and alcohol', 'Control acid reflux symptoms', 'Maintain healthy weight'],
+                        symptoms: ['Difficulty or pain swallowing', 'Pain behind breastbone', 'Persistent indigestion', 'Unexplained weight loss'],
+                        urgency: 'Schedule GI appointment within 2 weeks'
+                    },
+                    'oral': {
+                        actions: ['Schedule oral/ENT examination', 'Get oral mucosa check', 'Quit tobacco, alcohol, and betel nut', 'Address non-healing ulcers'],
+                        lifestyle: ['Quit smoking and alcohol', 'Stop chewing betel nut', 'Maintain good oral hygiene', 'Regular dental checkups'],
+                        symptoms: ['Mouth ulcer over 3 weeks non-healing', 'White or red patches in mouth', 'Difficulty swallowing', 'Persistent hoarse voice'],
+                        urgency: 'Schedule specialist appointment within 2 weeks'
+                    }
+                }
+            };
+            const detailedRecommendations = detailedRecommendations_all[currentLanguage] || detailedRecommendations_all['zh-HK'];
+
             const scores = {};
             const maxScores = {};
             cancerTypes.forEach(cancer => {
@@ -5739,6 +6020,7 @@
                 .map(([cancer, score]) => {
                     const max = maxScores[cancer];
                     const percentage = max > 0 ? Math.round((score / max) * 100) : 0;
+                    const details = detailedRecommendations[cancer] || {};
                     return {
                         cancer,
                         name: cancerNames[cancer] || cancer,
@@ -5746,7 +6028,11 @@
                         maxScore: max,
                         percentage,
                         level: getRiskLevel(percentage),
-                        test: recommendedTests[cancer] || '諮詢專科醫生'
+                        test: recommendedTests[cancer] || '諮詢專科醫生',
+                        actions: details.actions || [],
+                        lifestyle: details.lifestyle || [],
+                        symptoms: details.symptoms || [],
+                        urgency: details.urgency || ''
                     };
                 })
                 .sort((a, b) => b.percentage - a.percentage);
@@ -6291,31 +6577,102 @@
                     ${bmiWarning}
                     
                     ${highRiskItems.length > 0 ? `
-                        <div class="bg-orange-50 dark:bg-orange-900/30 border-2 border-orange-300 dark:border-orange-700 rounded-xl p-6 mb-6">
-                            <h2 class="text-xl font-bold text-orange-800 dark:text-orange-200 mb-3 flex items-center">
-                                <span class="text-2xl mr-2">📋</span> ${t('highRiskTitle')}
+                        <div class="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-6 mb-6">
+                            <h2 class="text-xl font-bold text-red-800 dark:text-red-200 mb-3 flex items-center">
+                                <span class="text-2xl mr-2">🚨</span> ${t('highRiskTitle')}
                             </h2>
-                            <p class="text-orange-700 dark:text-orange-300 mb-4 text-sm">
+                            <p class="text-red-700 dark:text-red-300 mb-4 text-sm">
                                 ${t('highRiskDesc')}
                             </p>
-                            <div class="space-y-3">
+                            <div class="space-y-4">
                                 ${highRiskItems.map(item => `
-                                    <div class="bg-white dark:bg-gray-800 rounded-lg p-3 flex items-center justify-between">
-                                        <div class="flex items-center">
-                                            <span class="text-xl mr-3">${getRiskStyle(item.level).emoji}</span>
-                                            <div>
-                                                <strong class="text-gray-800 dark:text-gray-200">${item.name}</strong>
-                                                <span class="text-sm text-gray-600 dark:text-gray-400 ml-2">(${item.percentage}%)</span>
+                                    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-4 ${item.level === 'veryHigh' ? 'border-red-500' : 'border-orange-500'}">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <div class="flex items-center">
+                                                <span class="text-xl mr-3">${getRiskStyle(item.level).emoji}</span>
+                                                <div>
+                                                    <strong class="text-lg text-gray-800 dark:text-gray-200">${item.name}</strong>
+                                                    <span class="text-sm ${item.level === 'veryHigh' ? 'text-red-600 dark:text-red-400' : 'text-orange-600 dark:text-orange-400'} ml-2 font-semibold">(${item.percentage}%)</span>
+                                                </div>
                                             </div>
+                                            <span class="text-xs px-2 py-1 rounded-full ${item.level === 'veryHigh' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' : 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'}">${item.urgency}</span>
                                         </div>
-                                        <div class="text-right text-sm">
-                                            <span class="text-orange-600 dark:text-orange-400">${t('suggest')}${item.test}</span>
+                                        
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                                            <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg">
+                                                <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-2 flex items-center">
+                                                    <span class="mr-1">📋</span> ${currentLanguage === 'en' ? 'Recommended Tests' : (currentLanguage === 'zh-CN' ? '建议检查' : '建議檢查')}
+                                                </h4>
+                                                <p class="text-blue-700 dark:text-blue-300">${item.test}</p>
+                                            </div>
+                                            
+                                            <div class="bg-purple-50 dark:bg-purple-900/30 p-3 rounded-lg">
+                                                <h4 class="font-bold text-purple-800 dark:text-purple-200 mb-2 flex items-center">
+                                                    <span class="mr-1">⚡</span> ${currentLanguage === 'en' ? 'Immediate Actions' : (currentLanguage === 'zh-CN' ? '即时行动' : '即時行動')}
+                                                </h4>
+                                                <ul class="text-purple-700 dark:text-purple-300 space-y-1">
+                                                    ${item.actions.slice(0, 3).map(a => `<li class="flex items-start"><span class="mr-1">•</span>${a}</li>`).join('')}
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="bg-green-50 dark:bg-green-900/30 p-3 rounded-lg">
+                                                <h4 class="font-bold text-green-800 dark:text-green-200 mb-2 flex items-center">
+                                                    <span class="mr-1">🏃</span> ${currentLanguage === 'en' ? 'Lifestyle Changes' : (currentLanguage === 'zh-CN' ? '生活调整' : '生活調整')}
+                                                </h4>
+                                                <ul class="text-green-700 dark:text-green-300 space-y-1">
+                                                    ${item.lifestyle.slice(0, 2).map(l => `<li class="flex items-start"><span class="mr-1">•</span>${l}</li>`).join('')}
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="bg-amber-50 dark:bg-amber-900/30 p-3 rounded-lg">
+                                                <h4 class="font-bold text-amber-800 dark:text-amber-200 mb-2 flex items-center">
+                                                    <span class="mr-1">⚠️</span> ${currentLanguage === 'en' ? 'Watch For' : (currentLanguage === 'zh-CN' ? '密切留意' : '密切留意')}
+                                                </h4>
+                                                <p class="text-amber-700 dark:text-amber-300">${item.symptoms.slice(0, 3).join('、')}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 `).join('')}
                             </div>
                         </div>
-                    ` : `
+                    ` : ''}
+                    
+                    ${mediumRiskItems.length > 0 ? `
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl p-6 mb-6">
+                            <h2 class="text-xl font-bold text-yellow-800 dark:text-yellow-200 mb-3 flex items-center">
+                                <span class="text-2xl mr-2">⚠️</span> ${currentLanguage === 'en' ? 'Items to Monitor' : (currentLanguage === 'zh-CN' ? '需注意的项目' : '需注意的項目')}
+                            </h2>
+                            <p class="text-yellow-700 dark:text-yellow-300 mb-4 text-sm">
+                                ${currentLanguage === 'en' ? 'These items show moderate risk. Consider regular monitoring and consult a doctor if symptoms persist.' : (currentLanguage === 'zh-CN' ? '这些项目显示中等风险指数，建议定期监察并留意相关症状。' : '這些項目顯示中等風險指數，建議定期監察並留意相關症狀。')}
+                            </p>
+                            <div class="space-y-3">
+                                ${mediumRiskItems.map(item => `
+                                    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-4 border-yellow-400">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <div class="flex items-center">
+                                                <span class="text-xl mr-3">${getRiskStyle(item.level).emoji}</span>
+                                                <div>
+                                                    <strong class="text-gray-800 dark:text-gray-200">${item.name}</strong>
+                                                    <span class="text-sm text-yellow-600 dark:text-yellow-400 ml-2">(${item.percentage}%)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-700 dark:text-gray-300 grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                                            <div><span class="font-semibold">📋 ${currentLanguage === 'en' ? 'Test:' : (currentLanguage === 'zh-CN' ? '检查：' : '檢查：')}</span> ${item.test}</div>
+                                            <div><span class="font-semibold">⚠️ ${currentLanguage === 'en' ? 'Watch:' : (currentLanguage === 'zh-CN' ? '留意：' : '留意：')}</span> ${item.symptoms.slice(0, 2).join('、')}</div>
+                                        </div>
+                                        ${item.actions.length > 0 ? `
+                                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                                                <span class="font-semibold">💡 ${currentLanguage === 'en' ? 'Tips:' : (currentLanguage === 'zh-CN' ? '建议：' : '建議：')}</span> ${item.actions[0]}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${highRiskItems.length === 0 && mediumRiskItems.length === 0 ? `
                         <div class="bg-green-50 dark:bg-green-900/30 border-2 border-green-300 dark:border-green-700 rounded-xl p-6 mb-6">
                             <h2 class="text-xl font-bold text-green-800 dark:text-green-200 mb-2 flex items-center">
                                 <span class="text-2xl mr-2">✅</span> ${t('goodResultTitle')}
@@ -6324,7 +6681,7 @@
                                 ${t('goodResultDesc')}
                             </p>
                         </div>
-                    `}
+                    ` : ''}
                     
                     <!-- 所有結果 -->
                     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
