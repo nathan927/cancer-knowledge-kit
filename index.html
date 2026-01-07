@@ -320,8 +320,8 @@
                 // Assessment Results
                 'appTitle': '癌症知識問與答',
                 'appSubtitle': '知癌、防癌、抗癌、願世界無癌',
-                'identityTitle': '請選擇您的身份，獲取最相關的資訊：',
-                'symptomConcern': '擔心症狀',
+                'identityTitle': '',
+                'symptomConcern': '癌症風險自我評估',
                 'symptomDesc': '進行癌症風險自我評估',
                 'patientCaregiver': '患者 / 照顧者',
                 'caregiverDesc': '獲取支援資源、照顧指南',
@@ -387,8 +387,8 @@
             'zh-CN': {
                 'appTitle': '癌症知识问与答',
                 'appSubtitle': '知癌、防癌、抗癌、愿世界无癌',
-                'identityTitle': '请选择您的身份，获取最相关的信息：',
-                'symptomConcern': '担心症状',
+                'identityTitle': '',
+                'symptomConcern': '癌症风险自我评估',
                 'symptomDesc': '进行癌症风险自我评估',
                 'patientCaregiver': '患者 / 照顾者',
                 'caregiverDesc': '获取支援资源、照顾指南',
@@ -452,8 +452,8 @@
             'en': {
                 'appTitle': 'Cancer Knowledge Q&A',
                 'appSubtitle': 'Know Cancer, Prevent Cancer, Fight Cancer',
-                'identityTitle': 'Please select your identity to get the most relevant information:',
-                'symptomConcern': 'Symptom Concern',
+                'identityTitle': '',
+                'symptomConcern': 'Cancer Risk Self-Assessment',
                 'symptomDesc': 'Take a Self-Assessment',
                 'patientCaregiver': 'Patient / Caregiver',
                 'caregiverDesc': 'Get Support & Care Guides',
@@ -3250,7 +3250,7 @@
                             </div>
 
                             <div class="mt-2">
-                                <a href="https://www.ha.org.hk/visitor/ha_visitor_index.asp?Content_ID=208065&Lang=CHIB5" target="_blank" class="inline-flex items-center text-primary font-bold hover:text-indigo-800 transition-colors">
+                                <a href="https://www.ha.org.hk/visitor/ha_visitor_index.asp?Content_ID=206049&Lang=CHIB5" target="_blank" class="inline-flex items-center text-primary font-bold hover:text-indigo-800 transition-colors">
                                     🔗 點擊瀏覽：醫管局關愛基金官方詳情及藥物名單
                                     <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                 </a>
@@ -4333,12 +4333,15 @@
                 isUserActive = true;
                 // 重置隱藏計時器
                 clearTimeout(hideTimeout);
-                hideTimeout = setTimeout(hideNav, 3000); // 3秒後隱藏
+                hideTimeout = setTimeout(hideNav, 3000); // 3秒後隱藏 (僅手機版)
             }
 
             // 函數：隱藏導航欄
             function hideNav() {
-                infoNav.classList.add('hidden');
+                // 只在手機版隱藏導航欄
+                if (window.innerWidth <= 640) {
+                    infoNav.classList.add('hidden');
+                }
                 isUserActive = false;
             }
 
@@ -4870,7 +4873,7 @@
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md mb-6 info-content">
-                        <p class="text-gray-600 dark:text-gray-300 italic mb-6">以下資訊由一位癌症病人家屬整理，他在照料病危父親期間匯集了這些知識，希望能幫助其他家庭。</p>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-6">以下資訊由一位癌症病人家屬整理，希望能幫助其他家庭。</p>
                         
                         <!-- 分類導航 -->
                         <div id="info-nav" class="info-nav flex flex-wrap gap-2 mb-6 sticky top-0 bg-white dark:bg-gray-800 z-10 py-2 border-b dark:border-gray-700">
